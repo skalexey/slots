@@ -2,10 +2,46 @@
 <resources>
 	<set path = "images" />
 	<atlas>
-		<image file="anim.png" cols = "8" />
-		<image file="button.png"/>		
+		<image file="background.jpg" />
+		<image file="bet_bar_back.png" />
+		<image file="bet_minus.png" />
+		<image file="bet_plus.png" />
+		<image file="buy.png" />
+		<image file="coin.png" />
+		<image file="coins_bar_back.png" />
+		<image file="frame_bottom.png" />
+		<image file="frame_side.png" />
+		<image file="frame_title.png" />
+		<image file="frame_top.png" />
+		<image file="info.png" />
+		<image file="lobby.png" />
+		<image file="spin.png" />
+		<image file="spin_disabled.png" />
+		<image file="spin_hover.png" />
+		<image file="spin_pressed.png" />
+		<image file="total_win_bar_back.png" />
+		<image file="tropicalisland1.png" />
+		<image file="tropicalisland1_b.png" />
+		<image file="tropicalisland2.png" />
+		<image file="tropicalisland2_b.png" />
+		<image file="tropicalisland3.png" />
+		<image file="tropicalisland3_b.png" />
+		<image file="tropicalisland4.png" />
+		<image file="tropicalisland4_b.png" />
+		<image file="tropicalisland5.png" />
+		<image file="tropicalisland5_b.png" />
+		<image file="tropicalisland6.png" />
+		<image file="tropicalisland6_b.png" />
+		<image file="tropicalisland7.png" />
+		<image file="tropicalisland7_b.png" />
+		<image file="tropicalisland8.png" />
+		<image file="tropicalisland8_b.png" />
+		<image file="wild.png" />
+		<image file="wild_b.png" />
+		<image file="xp.png" />
+		<image file="xp_bar_back.png" />
 	</atlas>
 	
 	<set path = "fonts" />
-	<font file="main.fnt" />	
+	<font file="main.fnt" />
 </resources>

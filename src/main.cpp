@@ -7,8 +7,8 @@
 #include "core/oxygine.h"
 #include "Stage.h"
 #include "DebugActor.h"
-#include "example.h"
-
+#include "MainScene.h"
+#include "Dispatcher.h"
 
 using namespace oxygine;
 
@@ -22,7 +22,7 @@ int mainloop()
     bool done = core::update();
 
     // It gets passed to our example game implementation
-    example_update();
+    main_scene_update();
 
     // Update our stage
     // Update all actors. Actor::update will also be called for all its children
@@ -37,7 +37,9 @@ int mainloop()
 
         core::swapDisplayBuffers();
     }
-
+    
+    Dispatcher::instance().update();
+    
     return done ? 1 : 0;
 }
 
@@ -58,20 +60,20 @@ void run()
 #endif
 
 
-    example_preinit();
+    main_scene_preinit();
     core::init(&desc);
 
 
     // Create the stage. Stage is a root node for all updateable and drawable objects
     Stage::instance = new Stage(true);
     Point size = core::getDisplaySize();
-    getStage()->setSize(size);
+    getStage()->init(size, {1334, 768});
 
     // DebugActor is a helper actor node. It shows FPS, memory usage and other useful stuff
     DebugActor::show();
 
     // Initializes our example game. See example.cpp
-    example_init();
+    main_scene_init();
 
 #ifdef EMSCRIPTEN
     /*
@@ -109,7 +111,7 @@ void run()
     */
 
     // See example.cpp for the shutdown function implementation
-    example_destroy();
+    main_scene_destroy();
 
 
     //renderer.cleanup();
