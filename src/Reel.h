@@ -21,10 +21,10 @@ public:
     Reel(int size, oxygine::Vector2 slot_size);
     void update(float delta_time);
     void spin();
-    int getQueueSize();
+    int getQueueSize() const;
     void pushRandomSlot();
     void pushSlot(int slot_index);
-    bool isSpinning();
+    bool isSpinning() const;
     void shadeSlot(int slot_index);
     void resetEffects();
     void setSlotSymbol(int slot_index, int symbol);

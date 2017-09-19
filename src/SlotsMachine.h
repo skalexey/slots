@@ -24,7 +24,7 @@ public:
     void spin();
     void update(float delta_time);
     void calculateVirtualStop();
-    int getTotalWin();
+    int getTotalWin() const;
 private:
     const int bet_size = 100;
     int calculateTotalWin(const std::vector<Payline>& paylines);
@@ -32,10 +32,10 @@ private:
     void showPayline(const Payline& payline);
     void shadeSlot(int reel_index, int slot_index);
     void animateSlot(int reel_index, int slot_index);
-    bool checkCoins();
+    bool checkCoins() const;
     void onSpinEnd();
-    void getSymbolsInWinCombination(const slots_table_t& win_combination, std::vector<int>& symbols_in_win_combination);
-    void findPaylines(std::vector<Payline>& paylines);
+    void getSymbolsInWinCombination(const slots_table_t& win_combination, std::vector<int>& symbols_in_win_combination) const;
+    void findPaylines(std::vector<Payline>& paylines) const;
     void resetEffects();
     void initReels(const oxygine::Vector2& reel_size);
     void initVirtualStop();

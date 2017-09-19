@@ -54,13 +54,13 @@ void DataManager::appendCoins(int coins)
     _coins += coins;
 }
 
-int DataManager::getWinAmount(int symbol, int symbols_count)
+int DataManager::getWinAmount(int symbol, int symbols_count) const
 {
     const SymbolInfo& slot_info = getSymbolInfo(symbol);
-    return slot_info.rewards[symbols_count - 3];
+    return slot_info.rewards[symbols_count - 3] * symbols_count;
 }
 
-int DataManager::getCoinsCount()
+int DataManager::getCoinsCount() const
 {
     return _coins;
 }
@@ -71,7 +71,7 @@ void DataManager::spendCoins(int bet_size)
     EventsController::instance().fireEvent("event.coins_changed");
 }
 
-int DataManager::calculateNewSlot()
+int DataManager::calculateNewSlot() const
 {
     float sum_of_weight = 0;
     for(const auto& it : _symbols_infos)
@@ -97,7 +97,7 @@ int DataManager::calculateNewSlot()
     return slot_number;
 }
 
-const symbols_infos_t& DataManager::getSymbolsInfos()
+const symbols_infos_t& DataManager::getSymbolsInfos() const
 {
     return _symbols_infos;
 }

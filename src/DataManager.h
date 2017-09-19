@@ -18,12 +18,12 @@ class DataManager
 public:    
     static DataManager& instance();
     const SymbolInfo& getSymbolInfo(int slot_index) const;
-    const symbols_infos_t& getSymbolsInfos();
-    int calculateNewSlot();
-    int getCoinsCount();
+    const symbols_infos_t& getSymbolsInfos() const;
+    int calculateNewSlot() const;
+    int getCoinsCount() const;
     void spendCoins(int bet_size);
     void appendCoins(int coins);
-    int getWinAmount(int symbol, int symbols_count);
+    int getWinAmount(int symbol, int symbols_count) const;
 private:
     DataManager();
     symbols_infos_t _symbols_infos;

@@ -79,7 +79,7 @@ void Reel::resetInnerContainerPosition()
     _inner_container->setPosition(0, 0);
 }
 
-int Reel::getQueueSize()
+int Reel::getQueueSize() const
 {
     return (int)_slots_queue.size();
 }
@@ -165,7 +165,7 @@ void Reel::update(float delta_time)
     _inner_container->setPosition(inner_container_position.x, inner_container_position.y + ds);
 }
 
-bool Reel::isSpinning()
+bool Reel::isSpinning() const
 {
     return _spinning;
 }

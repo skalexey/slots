@@ -11,6 +11,9 @@
 #include <ctime>
 #include <random>
 #include "Dispatcher.h"
+#include "oxygine-framework.h"
+
+using namespace oxygine;
 
 Dispatcher& Dispatcher::instance()
 {
@@ -18,9 +21,15 @@ Dispatcher& Dispatcher::instance()
     return _instance;
 }
 
+void Dispatcher::cancelAll()
+{
+    _timeouts.clear();
+    _intervals.clear();
+}
+
 int Dispatcher::runAfter(std::function<void()> callback_to_do, int timeout_ms)
 {
-    Timeout timeout(callback_to_do, timeout_ms, false);
+    Timeout timeout(callback_to_do, timeout_ms);
     int id = generateId();
     _timeouts[id] = timeout;
     return id;
@@ -29,18 +38,18 @@ int Dispatcher::runAfter(std::function<void()> callback_to_do, int timeout_ms)
 int Dispatcher::runAndRepeatAfter(std::function<void()> callback_to_do, int timeout_ms)
 {
     callback_to_do();
-    Timeout timeout(callback_to_do, timeout_ms, true);
+    Interval interval(callback_to_do, timeout_ms);
     int id = generateId();
-    _timeouts[id] = timeout;
+    _intervals[id] = interval;
     return id;
 }
 
-void Dispatcher::cancel(int id)
+void Dispatcher::cancelInterval(int id)
 {
-    _timeouts.erase(id);
+    _intervals.erase(id);
 }
 
-int Dispatcher::generateId()
+int Dispatcher::generateId() const
 {
     int id = 0;
     do
@@ -64,31 +73,35 @@ void Dispatcher::update()
         if(time_since_start >= timeout.timeout_ms)
         {
             timeout.callback_to_do();
-            if(!timeout.isInterval())
-            {
-                it = _timeouts.erase(it);
-            }
-            else
-            {
-                timeout.creation_time = now;
-            }
+            it = _timeouts.erase(it);
         }
         else
         {
             ++it;
         }
     }
+    for(auto it = _intervals.begin(); it != _intervals.end(); ++it)
+    {
+        Interval& interval = it->second;
+        long time_since_last_cycle = std::chrono::duration_cast<std::chrono::milliseconds>(now - interval.last_cycle_time).count();
+        if(time_since_last_cycle >= interval.timeout_ms)
+        {
+            interval.callback_to_do();
+            interval.last_cycle_time = now;
+        }
+    }
 }
 
-Timeout::Timeout(std::function<void()> callback_to_do, int timeout_ms, bool _repeat)
+Timeout::Timeout(std::function<void()> callback_to_do, int timeout_ms)
 : callback_to_do(callback_to_do)
 , timeout_ms(timeout_ms)
-, _repeat(false)
 {
     creation_time = std::chrono::steady_clock::now();
 }
 
-bool Timeout::isInterval()
+Interval::Interval(std::function<void()> callback_to_do, int timeout_ms)
+: callback_to_do(callback_to_do)
+, timeout_ms(timeout_ms)
 {
-    return _repeat;
+    last_cycle_time = std::chrono::steady_clock::now();
 }

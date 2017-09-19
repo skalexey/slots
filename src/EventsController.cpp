@@ -33,7 +33,7 @@ void EventsController::subscribeToEvent(const std::string& event_name, std::func
 {
     _events_callbacks.insert(std::pair<std::string, std::function<void()> >(event_name, callback));
 }
-void EventsController::fireEvent(const std::string& event_name)
+void EventsController::fireEvent(const std::string& event_name) const
 {
     auto range = _events_callbacks.equal_range(event_name);
     if(range.first == _events_callbacks.end())

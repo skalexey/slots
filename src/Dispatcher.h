@@ -18,12 +18,19 @@
 struct Timeout
 {
     Timeout(){}
-    Timeout(std::function<void()> callback_to_do, int timeout_ms, bool repeat);
+    Timeout(std::function<void()> callback_to_do, int timeout_ms);
     std::function<void()> callback_to_do;
     int timeout_ms;
     std::chrono::steady_clock::time_point creation_time;
-    bool _repeat;
-    bool isInterval();
+};
+
+struct Interval
+{
+    Interval(){}
+    Interval(std::function<void()> callback_to_do, int timeout_ms);
+    std::function<void()> callback_to_do;
+    int timeout_ms;
+    std::chrono::steady_clock::time_point last_cycle_time;
 };
 
 class Dispatcher
@@ -33,10 +40,12 @@ public:
     int runAfter(std::function<void()> callback_to_do, int timeout_ms);
     int runAndRepeatAfter(std::function<void()> callback_to_do, int timeout_ms);
     void update();
-    void cancel(int id);
+    void cancelInterval(int id);
+    void cancelAll();
 private:
-    int generateId();
+    int generateId() const;
     std::unordered_map<int, Timeout> _timeouts;
+    std::unordered_map<int, Interval> _intervals;
 };
 
 #endif /* Dispatcher_h */
