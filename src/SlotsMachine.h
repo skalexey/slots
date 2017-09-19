@@ -13,6 +13,7 @@
 #include <chrono>
 #include "oxygine-framework.h"
 #include "Reel.h"
+#include "Payline.h"
 
 DECLARE_SMART(SlotsMachine, spSlotsMachine);
 
@@ -23,17 +24,31 @@ public:
     void spin();
     void update(float delta_time);
     void calculateVirtualStop();
+    int getTotalWin();
 private:
     const int bet_size = 100;
+    int calculateTotalWin(const std::vector<Payline>& paylines);
+    void showPaylines(const std::vector<Payline>& paylines);
+    void showPayline(const Payline& payline);
+    void shadeSlot(int reel_index, int slot_index);
+    void animateSlot(int reel_index, int slot_index);
     bool checkCoins();
+    void onSpinEnd();
+    void getSymbolsInWinCombination(const slots_table_t& win_combination, std::vector<int>& symbols_in_win_combination);
+    void findPaylines(std::vector<Payline>& paylines);
+    void resetEffects();
     void initReels(const oxygine::Vector2& reel_size);
     void initVirtualStop();
     void pushVirtualStop();
+    void initWinCombinations();
     int _reel_size;
     int _reels_count;
     std::vector<spReel> _reels;
     std::chrono::steady_clock::time_point _start_spinning_time;
-    std::vector<std::vector<int> > _virtual_stop;
+    slots_table_t _virtual_stop;
+    std::array<slots_table_t, 9> _win_combinations;
     bool _spinning;
+    int _show_paylines_interval;
+    int _total_win;
 };
 #endif /* SlotsMachine_h */

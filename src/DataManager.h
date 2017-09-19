@@ -11,20 +11,22 @@
 #include <map>
 #include "Slot.h"
 
-typedef std::map<int, SlotInfo> slots_infos_t;
+typedef std::map<int, SymbolInfo> symbols_infos_t;
 
 class DataManager
 {
 public:    
     static DataManager& instance();
-    const SlotInfo& get_slot_info(int slot_index) const;
-    const slots_infos_t& get_slots_infos();
+    const SymbolInfo& getSymbolInfo(int slot_index) const;
+    const symbols_infos_t& getSymbolsInfos();
     int calculateNewSlot();
     int getCoinsCount();
     void spendCoins(int bet_size);
+    void appendCoins(int coins);
+    int getWinAmount(int symbol, int symbols_count);
 private:
     DataManager();
-    slots_infos_t _slots_infos;
+    symbols_infos_t _symbols_infos;
     int _coins;
 };
 

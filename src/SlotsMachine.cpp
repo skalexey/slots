@@ -17,14 +17,185 @@ using namespace oxygine;
 const int delay_between_reels_ms = 200;
 const int spinning_time_ms = 7000;
 const int calculation_time_point = 3000;
-
+const int delay_between_showing_paylines = 2000;
+const int wild_symbol = 0;
 SlotsMachine::SlotsMachine(int reel_size, int reels_count, const Vector2& slot_size)
 : _reel_size(reel_size)
 , _reels_count(reels_count)
+, _spinning(false)
+, _show_paylines_interval(0)
+, _total_win(0)
 {
     setSize({reels_count * slot_size.x, reel_size * slot_size.y});
     initReels(slot_size);
     initVirtualStop();
+    initWinCombinations();
+}
+
+void SlotsMachine::initWinCombinations()
+{
+    slots_table_t win_combination1 = {{0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}};
+    slots_table_t win_combination2 = {{1, 0, 0}, {1, 0, 0}, {1, 0, 0}, {1, 0, 0}, {1, 0, 0}};
+    slots_table_t win_combination3 = {{0, 0, 1}, {0, 0, 1}, {0, 0, 1}, {0, 0, 1}, {0, 0, 1}};
+    slots_table_t win_combination4 = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {0, 1, 0}, {1, 0, 0}};
+    slots_table_t win_combination5 = {{0, 0, 1}, {0, 1, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    slots_table_t win_combination6 = {{0, 1, 0}, {1, 0, 0}, {1, 0, 0}, {1, 0, 0}, {0, 1, 0}};
+    slots_table_t win_combination7 = {{0, 1, 0}, {0, 0, 1}, {0, 0, 1}, {0, 0, 1}, {0, 1, 0}};
+    slots_table_t win_combination8 = {{1, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {0, 0, 1}};
+    slots_table_t win_combination9 = {{0, 0, 1}, {0, 0, 1}, {0, 1, 0}, {1, 0, 0}, {1, 0, 0}};
+    _win_combinations[0] = win_combination1;
+    _win_combinations[1] = win_combination2;
+    _win_combinations[2] = win_combination3;
+    _win_combinations[3] = win_combination4;
+    _win_combinations[4] = win_combination5;
+    _win_combinations[5] = win_combination6;
+    _win_combinations[6] = win_combination7;
+    _win_combinations[7] = win_combination8;
+    _win_combinations[8] = win_combination9;
+}
+
+void SlotsMachine::onSpinEnd()
+{
+    std::vector<Payline> paylines;
+    findPaylines(paylines);
+    showPaylines(paylines);
+    _total_win = calculateTotalWin(paylines);
+    DataManager::instance().appendCoins(_total_win);
+}
+
+int SlotsMachine::getTotalWin()
+{
+    return _total_win;
+}
+
+int SlotsMachine::calculateTotalWin(const std::vector<Payline>& paylines)
+{
+    int total_win = 0;
+    for(int payline_index = 0; payline_index < paylines.size(); payline_index++)
+    {
+        const Payline& payline = paylines[payline_index];
+        total_win += payline.getWinAmount();
+    }
+    return total_win;
+}
+
+void SlotsMachine::showPaylines(const std::vector<Payline>& paylines)
+{
+    for(int payline_index = 0; payline_index < paylines.size(); payline_index++)
+    {
+        const Payline& payline = paylines[payline_index];
+        _show_paylines_interval = Dispatcher::instance().runAndRepeatAfter([=]()
+        {
+            Dispatcher::instance().runAfter([=]()
+            {
+                showPayline(payline);
+                
+            }, payline_index * delay_between_showing_paylines);
+        }, (int)(paylines.size() + 1) * delay_between_showing_paylines);
+    }
+}
+
+void SlotsMachine::resetEffects()
+{
+    for(const spReel& reel : _reels)
+    {
+        reel->resetEffects();
+    }
+    if(_show_paylines_interval != 0)
+    {
+        Dispatcher::instance().cancel(_show_paylines_interval);
+        _show_paylines_interval = 0;
+    }
+}
+
+void SlotsMachine::showPayline(const Payline& payline)
+{
+    resetEffects();
+    for(int reel_index = 0; reel_index < _reels_count; reel_index++)
+    {
+        std::vector<int> reel_in_win_combination = payline.win_combination[reel_index];
+        
+        for(int slot_index = 0; slot_index < _reel_size; slot_index++)
+        {
+            int slot_symbol_in_win_combination = payline.symbols_in_win_combination[reel_index];
+            if(reel_in_win_combination[slot_index] == 1 && slot_symbol_in_win_combination > 0)
+            {
+                if(slot_symbol_in_win_combination != _virtual_stop[reel_index][slot_index])
+                {
+                    _reels[reel_index]->setSlotSymbol(slot_index, slot_symbol_in_win_combination);
+                    _virtual_stop[reel_index][slot_index] = slot_symbol_in_win_combination;
+                }
+                animateSlot(reel_index, slot_index);
+            }
+            else
+            {
+                shadeSlot(reel_index, slot_index);
+            }
+        }
+    }
+}
+
+void SlotsMachine::animateSlot(int reel_index, int slot_index)
+{
+    
+}
+
+void SlotsMachine::shadeSlot(int reel_index, int slot_index)
+{
+    spReel reel = _reels[reel_index];
+    reel->shadeSlot(slot_index);
+}
+
+void SlotsMachine::getSymbolsInWinCombination(const slots_table_t& win_combination, std::vector<int>& symbols_in_win_combination)
+{
+    for(int reel_index = 0; reel_index < _reels_count; reel_index++)
+    {
+        const std::vector<int>& reel_in_combination = win_combination[reel_index];
+        const std::vector<int>& reel_in_virtual_stop = _virtual_stop[reel_index];
+        for(int slot_index = 0; slot_index < reel_in_combination.size(); slot_index++)
+        {
+            if(reel_in_combination[slot_index] == 1)
+            {
+                symbols_in_win_combination.push_back(reel_in_virtual_stop[slot_index]);
+            }
+        }
+    }
+}
+
+void SlotsMachine::findPaylines(std::vector<Payline>& paylines)
+{
+    for(int win_combination_index = 0; win_combination_index < _win_combinations.size(); win_combination_index++)
+    {
+        const slots_table_t& win_combination = _win_combinations[win_combination_index];
+        std::vector<int> symbols_in_win_combination;
+        getSymbolsInWinCombination(win_combination, symbols_in_win_combination);
+        int last_symbol = -1;
+        int win_symbol = -1;
+        std::vector<int> win_set;
+        std::vector<int> wild_set;
+        for(int reel_index = 0; reel_index < _reels_count; reel_index++)
+        {
+            int symbol = symbols_in_win_combination[reel_index];
+            if(win_symbol == -1)
+            {
+                win_symbol = symbol;
+            }
+            else if(symbol != win_symbol)
+            {
+                break;
+            }
+            win_set.push_back(symbol);
+        }
+        if(win_set.size() >= 3)
+        {
+            // remove all symbols instead of payable
+            for(size_t i = win_set.size(); i < _reels_count; i++)
+            {
+                symbols_in_win_combination[i] = 0;
+            }
+            paylines.push_back(Payline(win_combination, symbols_in_win_combination));
+        }
+    }
 }
 
 bool SlotsMachine::checkCoins()
@@ -34,11 +205,14 @@ bool SlotsMachine::checkCoins()
 
 void SlotsMachine::spin()
 {
+    resetEffects();
+    
     if(!checkCoins())
     {
         EventsController::instance().fireEvent("event.spin_end");
         return;
     }
+    
     DataManager::instance().spendCoins(bet_size);
     _start_spinning_time = std::chrono::steady_clock::now();
     _spinning = true;
@@ -61,8 +235,9 @@ void SlotsMachine::pushVirtualStop()
     {
         spReel& reel = _reels[reel_index];
         std::vector<int>& virtual_stop_reel = _virtual_stop[reel_index];
-        for(const auto& slot : virtual_stop_reel)
+        for(auto slot_it = virtual_stop_reel.rbegin(); slot_it != virtual_stop_reel.rend(); ++slot_it)
         {
+            int slot = *slot_it;
             reel->pushSlot(slot);
         }
     }
@@ -132,6 +307,7 @@ void SlotsMachine::update(float delta_time)
     if(_spinning && reels_stopped && time_since_spin_begin > 200)
     {
         _spinning = false;
+        onSpinEnd();
         EventsController::instance().fireEvent("event.spin_end");
     }
 }

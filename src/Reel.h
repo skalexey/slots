@@ -25,6 +25,9 @@ public:
     void pushRandomSlot();
     void pushSlot(int slot_index);
     bool isSpinning();
+    void shadeSlot(int slot_index);
+    void resetEffects();
+    void setSlotSymbol(int slot_index, int symbol);
 private:
     void resetInnerContainerPosition();
     void pushInnerContainerUp();
@@ -42,6 +45,7 @@ private:
     double _ba;
     bool _spinning;
     std::chrono::steady_clock::time_point _start_spinning_time;
+    std::vector<oxygine::spActor> _effects_nodes;
 };
 
 #endif /* Reel_h */

@@ -11,31 +11,33 @@
 
 extern oxygine::Resources gameResources;
 
-Slot::Slot(oxygine::spSprite p_sprite, int slot_index)
+Slot::Slot(oxygine::spSprite p_sprite, int symbol)
 : _sprite(p_sprite)
 , _blured(false)
 {
-    setSlot(slot_index);
+    setSlotSymbol(symbol);
 }
 
-void Slot::setSlot(int slot_index)
+void Slot::setSlotSymbol(int symbol)
 {
-    slot_info = DataManager::instance().get_slot_info(slot_index);
+    slot_info = DataManager::instance().getSymbolInfo(symbol);
     _sprite->setResAnim(gameResources.getResAnim(_blured ? slot_info.image_blured_file_name : slot_info.image_file_name));
 }
 
-SlotInfo::SlotInfo()
+SymbolInfo::SymbolInfo()
 : weight(0)
 {
     
 }
 
-SlotInfo::SlotInfo(float weight, std::array<int, 3> rewards, std::string image_file_name, std::string image_blured_file_name)
+SymbolInfo::SymbolInfo(float weight, int reward1, int reward2, int reward3, std::string image_file_name, std::string image_blured_file_name)
 : weight(weight)
 , image_file_name(image_file_name)
 , image_blured_file_name(image_blured_file_name)
 {
-    
+    rewards[0] = reward1;
+    rewards[1] = reward2;
+    rewards[2] = reward3;
 }
 
 oxygine::spSprite Slot::getSprite()

@@ -32,6 +32,7 @@
 		79FB4CA71F6EFF2D0010A830 /* Reel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79FB4CA51F6EFF2D0010A830 /* Reel.cpp */; };
 		79FB4CAA1F6FAB4D0010A830 /* Dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79FB4CA81F6FAB4D0010A830 /* Dispatcher.cpp */; };
 		79FB4CAD1F70347C0010A830 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79FB4CAB1F70347C0010A830 /* Utils.cpp */; };
+		79FB4CB01F7105B90010A830 /* Payline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79FB4CAE1F7105B90010A830 /* Payline.cpp */; };
 		9223FE7F1C2D913D000B1FDA /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9223FE7E1C2D913D000B1FDA /* GameController.framework */; };
 		AD18619B1D8EC97A0043AFA3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD18619A1D8EC97A0043AFA3 /* AVFoundation.framework */; };
 		C8860D93875589970329DCCD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 4DA100C319512824B7570663 /* fonts */; };
@@ -112,6 +113,8 @@
 		79FB4CA91F6FAB4D0010A830 /* Dispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dispatcher.h; path = ../src/Dispatcher.h; sourceTree = "<group>"; };
 		79FB4CAB1F70347C0010A830 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Utils.cpp; path = ../src/Utils.cpp; sourceTree = "<group>"; };
 		79FB4CAC1F70347C0010A830 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../src/Utils.h; sourceTree = "<group>"; };
+		79FB4CAE1F7105B90010A830 /* Payline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Payline.cpp; path = ../src/Payline.cpp; sourceTree = "<group>"; };
+		79FB4CAF1F7105B90010A830 /* Payline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Payline.h; path = ../src/Payline.h; sourceTree = "<group>"; };
 		7F3B12E3C9D554D9FE28101D /* res.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wtf; name = res.xml; path = ../data/res.xml; sourceTree = "<group>"; };
 		9223FE7E1C2D913D000B1FDA /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		AD18619A1D8EC97A0043AFA3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -232,6 +235,8 @@
 				79FB4CA91F6FAB4D0010A830 /* Dispatcher.h */,
 				79FB4CAB1F70347C0010A830 /* Utils.cpp */,
 				79FB4CAC1F70347C0010A830 /* Utils.h */,
+				79FB4CAE1F7105B90010A830 /* Payline.cpp */,
+				79FB4CAF1F7105B90010A830 /* Payline.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79FB4CB01F7105B90010A830 /* Payline.cpp in Sources */,
 				DA49ED8903C628BA578C8670 /* main.cpp in Sources */,
 				7971EB471F6E763A0032D376 /* DataManager.cpp in Sources */,
 				7971EB391F6E4A500032D376 /* EventsController.cpp in Sources */,

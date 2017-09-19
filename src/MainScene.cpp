@@ -19,6 +19,7 @@ const float ui_scale = 0.7f;
 class MainActor: public Actor
 {
     spSlotsMachine _slots_machine;
+    spTextField _total_win_text;
 public:
 
     MainActor()
@@ -84,12 +85,15 @@ public:
             button_spin->setResAnim(gameResources.getResAnim("spin_disabled"));
             _slots_machine->spin();
             button_spin->setTouchEnabled(false);
+            resetTotalWin();
             
         });
         EventsController::instance().subscribeToEvent("event.spin_end", [=]()
         {
             button_spin->setTouchEnabled(true);
             button_spin->setResAnim(gameResources.getResAnim("spin"));
+            _total_win_text->setText(Utils::to_string(_slots_machine->getTotalWin()));
+            coins_text->setText(Utils::to_string(DataManager::instance().getCoinsCount()));
         });
         button_spin->setAnchor(1, 1);
         button_spin->setPosition(stage_size);
@@ -103,16 +107,16 @@ public:
         image_total_win_bg->setPosition(stage_size.x - 400, stage_size.y);
         addChild(image_total_win_bg);
 
-        spTextField total_win_text = new TextField();
+        _total_win_text = new TextField();
         //attach it as child to button
-        total_win_text->attachTo(image_total_win_bg);
+        _total_win_text->attachTo(image_total_win_bg);
         //centered in button
         const Vector2& image_total_win_bg_size = image_total_win_bg->getSize();
-        total_win_text->setPosition(image_total_win_bg_size.x / 2, image_total_win_bg_size.y * 0.54f);
-        total_win_text->setFontSize(64);
+        _total_win_text->setPosition(image_total_win_bg_size.x / 2, image_total_win_bg_size.y * 0.54f);
+        _total_win_text->setFontSize(64);
         style = TextStyle(gameResources.getResFont("main")).withColor(Color::White).alignMiddle();
-        total_win_text->setStyle(style);
-        total_win_text->setText("0");
+        _total_win_text->setStyle(style);
+        resetTotalWin();
         UpdateCallback callback_update = CLOSURE(this, &MainActor::update);
         setCallbackDoUpdate(callback_update);
         
@@ -138,6 +142,11 @@ public:
         addChild(bet_minus_button);
         
         
+    }
+    
+    void resetTotalWin()
+    {
+        _total_win_text->setText("0");
     }
 
     void update(const UpdateState& us)

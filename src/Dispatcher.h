@@ -13,23 +13,30 @@
 #include <vector>
 #include <utility>
 #include <chrono>
+#include <unordered_map>
 
 struct Timeout
 {
-    Timeout(std::function<void()> callback_to_do, int timeout_ms);
+    Timeout(){}
+    Timeout(std::function<void()> callback_to_do, int timeout_ms, bool repeat);
     std::function<void()> callback_to_do;
     int timeout_ms;
     std::chrono::steady_clock::time_point creation_time;
+    bool _repeat;
+    bool isInterval();
 };
 
 class Dispatcher
 {
 public:
     static Dispatcher& instance();
-    void runAfter(std::function<void()> callback_to_do, int timeout_ms);
+    int runAfter(std::function<void()> callback_to_do, int timeout_ms);
+    int runAndRepeatAfter(std::function<void()> callback_to_do, int timeout_ms);
     void update();
+    void cancel(int id);
 private:
-    std::vector<Timeout> _timeouts;
+    int generateId();
+    std::unordered_map<int, Timeout> _timeouts;
 };
 
 #endif /* Dispatcher_h */

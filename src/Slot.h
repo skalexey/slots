@@ -12,10 +12,12 @@
 #include <array>
 #include "oxygine-framework.h"
 
-struct SlotInfo
+typedef std::vector<std::vector<int> > slots_table_t;
+
+struct SymbolInfo
 {
-    SlotInfo();
-    SlotInfo(float weight, std::array<int, 3> rewards, std::string image_file_name, std::string image_blured_file_name);
+    SymbolInfo();
+    SymbolInfo(float weight, int reward1, int reward2, int reward3, std::string image_file_name, std::string image_blured_file_name);
     float weight;
     std::array<int, 3> rewards;
     std::string image_file_name;
@@ -24,11 +26,11 @@ struct SlotInfo
 
 struct Slot
 {
-    Slot(oxygine::spSprite p_sprite, int slot_index);
-    SlotInfo slot_info;
+    Slot(oxygine::spSprite p_sprite, int symbol);
+    SymbolInfo slot_info;
     oxygine::spSprite getSprite();
     void operator=(Slot&);
-    void setSlot(int slot_index);
+    void setSlotSymbol(int symbol);
     void blur();
     void unblur();
 private:
