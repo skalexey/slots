@@ -38,6 +38,11 @@ public:
         //attach button as child to current actor
         addChild(background);
      
+        _slots_machine = new SlotsMachine(3, 5, {160, 160});
+        addChild(_slots_machine);
+        _slots_machine->setAnchor(0.5, 0.5);
+        _slots_machine->setPosition(center_pos);
+        
         spSprite coins_bg = new Sprite;
         coins_bg->setResAnim(gameResources.getResAnim("coins_bar_back"));
         coins_bg->setPosition(170, 14);
@@ -64,14 +69,6 @@ public:
         {
             coins_text->setText(Utils::to_string(DataManager::instance().getCoinsCount()));
         });
-        
-        _slots_machine = new SlotsMachine(3, 5, {160, 160});
-        spClipRectActor clp = new ClipRectActor;
-        clp->setAnchor(0.5, 0.5);
-        clp->setSize(_slots_machine->getSize());
-        clp->setPosition(center_pos);
-        clp->addChild(_slots_machine);
-        addChild(clp);
         
         spSprite button_spin = new Sprite();
         button_spin->setResAnim(gameResources.getResAnim("spin"));
@@ -141,6 +138,7 @@ public:
         bet_minus_button->setPosition(stage_size.x - 1040, stage_size.y);
         addChild(bet_minus_button);
         
+                
         
     }
     

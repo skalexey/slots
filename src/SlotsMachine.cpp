@@ -14,6 +14,9 @@
 
 using namespace oxygine;
 
+extern Resources gameResources;
+
+const float ui_scale = 0.7f;
 const int delay_between_reels_ms = 200;
 const int spinning_time_ms = 7000;
 const int calculation_time_point = 3000;
@@ -26,10 +29,63 @@ SlotsMachine::SlotsMachine(int reel_size, int reels_count, const Vector2& slot_s
 , _show_paylines_interval(0)
 , _total_win(0)
 {
+    _inner_container = new Actor;
     setSize({reels_count * slot_size.x, reel_size * slot_size.y});
+    spClipRectActor clp = new ClipRectActor;
+    clp->setSize(getSize());
+    clp->addChild(_inner_container);
+    addChild(clp);
     initReels(slot_size);
     initVirtualStop();
     initWinCombinations();
+    initGraphics();
+}
+
+void SlotsMachine::initGraphics()
+{
+    Vector2 parent_size = getSize();
+    spSprite top_left_part = new Sprite;
+    top_left_part->setResAnim(gameResources.getResAnim("frame_top"));
+    top_left_part->setScale(ui_scale);
+    top_left_part->setPosition(-112, -50);
+    addChild(top_left_part);
+    
+    spSprite top_right_part = new Sprite;
+    top_right_part->setResAnim(gameResources.getResAnim("frame_top"));
+    top_right_part->setScale(-ui_scale, ui_scale);
+    top_right_part->setPosition(900, -50);
+    addChild(top_right_part);
+    
+    spSprite title = new Sprite;
+    title->setResAnim(gameResources.getResAnim("frame_title"));
+    title->setAnchor(0.5, 0.5);
+    title->setScale(ui_scale);
+    title->setPosition(parent_size.x / 2, -35);
+    addChild(title);
+    
+    spSprite bottom_left_part = new Sprite;
+    bottom_left_part->setResAnim(gameResources.getResAnim("frame_bottom"));
+    bottom_left_part->setScale(ui_scale);
+    bottom_left_part->setPosition(-112, parent_size.y - 8);
+    addChild(bottom_left_part);
+    
+    spSprite bottom_right_part = new Sprite;
+    bottom_right_part->setResAnim(gameResources.getResAnim("frame_bottom"));
+    bottom_right_part->setScale(-ui_scale, ui_scale);
+    bottom_right_part->setPosition(900, parent_size.y - 8);
+    addChild(bottom_right_part);
+    
+    spSprite left_part = new Sprite;
+    left_part->setResAnim(gameResources.getResAnim("frame_side"));
+    left_part->setScale(-ui_scale * 0.76, ui_scale * 0.76);
+    left_part->setPosition(20, -88);
+    addChild(left_part);
+    
+    spSprite right_part = new Sprite;
+    right_part->setResAnim(gameResources.getResAnim("frame_side"));
+    right_part->setScale(ui_scale * 0.76, ui_scale * 0.76);
+    right_part->setPosition(parent_size.x - 21, -88);
+    addChild(right_part);
 }
 
 void SlotsMachine::initWinCombinations()
@@ -310,7 +366,7 @@ void SlotsMachine::initReels(const Vector2& slot_size)
         spReel new_reel = new Reel(_reel_size, slot_size);
         _reels.push_back(new_reel);
         new_reel->setPosition({reel_index * slot_size.x, 0});
-        addChild(new_reel);
+        _inner_container->addChild(new_reel);
     }
 }
 

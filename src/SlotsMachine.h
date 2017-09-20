@@ -41,6 +41,7 @@ private:
     void initVirtualStop();
     void pushVirtualStop();
     void initWinCombinations();
+    void initGraphics();
     int _reel_size;
     int _reels_count;
     std::vector<spReel> _reels;
@@ -50,5 +51,6 @@ private:
     bool _spinning;
     int _show_paylines_interval;
     int _total_win;
+    oxygine::spActor _inner_container;
 };
 #endif /* SlotsMachine_h */
