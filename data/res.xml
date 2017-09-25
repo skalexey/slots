@@ -40,6 +40,15 @@
 		<image file="wild_b.png" />
 		<image file="xp.png" />
 		<image file="xp_bar_back.png" />
+		<image file="tropicalisland1_spritesheet.png" cols="5" rows="3"/>
+		<image file="tropicalisland2_spritesheet.png" cols="5" rows="3"/>
+		<image file="tropicalisland3_spritesheet.png" cols="5" rows="3"/>
+		<image file="tropicalisland4_spritesheet.png" cols="5" rows="3"/>
+		<image file="tropicalisland5_spritesheet.png" cols="5" rows="3"/>
+		<image file="tropicalisland6_spritesheet.png" cols="5" rows="3"/>
+		<image file="tropicalisland7_spritesheet.png" cols="5" rows="3"/>
+		<image file="tropicalisland8_spritesheet.png" cols="5" rows="3"/>
+		<image file="wild_spritesheet.png" cols="5" rows="3"/>
 	</atlas>
 	
 	<set path = "fonts" />

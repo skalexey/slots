@@ -22,7 +22,7 @@ class SlotsMachine : public oxygine::Actor
 public:
     SlotsMachine(int reel_size, int reels_count, const oxygine::Vector2& slot_size);
     void spin();
-    void update(float delta_time);
+    void _update(float delta_time);
     void calculateVirtualStop();
     int getTotalWin() const;
 private:

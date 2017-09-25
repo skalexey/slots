@@ -1,12 +1,13 @@
 #include <functional>
 #include <string>
 #include "oxygine-framework.h"
+#include "oxygine-sound.h"
 #include "SlotsMachine.h"
 #include "EventsController.h"
 #include "ClipRectActor.h"
 #include "DataManager.h"
 #include "Utils.h"
-#include "oxygine-sound.h"
+#include "TweenAnimRows.h"
 
 using namespace oxygine;
 
@@ -18,7 +19,7 @@ Resources gameResources;
 extern SoundPlayer sfxPlayer;
 extern SoundPlayer musicPlayer;
 
-const float ui_scale = 0.7f;
+float ui_scale = 0.7f;
 
 class MainActor: public Actor
 {
@@ -79,7 +80,7 @@ public:
         button_spin->addEventListener(TouchEvent::TOUCH_DOWN, [=](Event * e)
         {
             button_spin->setResAnim(gameResources.getResAnim("spin_pressed"));
-            
+            button_spin->setColor(Color::White);
         });
         button_spin->addEventListener(TouchEvent::TOUCH_UP, [=](Event * e)
         {
@@ -123,7 +124,7 @@ public:
         style = TextStyle(gameResources.getResFont("myriad_pro_bold_condensed")).withColor(Color::White).alignMiddle();
         _total_win_text->setStyle(style);
         resetTotalWin();
-        UpdateCallback callback_update = CLOSURE(this, &MainActor::update);
+        UpdateCallback callback_update = CLOSURE(this, &MainActor::_update);
         setCallbackDoUpdate(callback_update);
         
         spSprite bet_plus_button = new Sprite;
@@ -148,6 +149,32 @@ public:
         addChild(bet_minus_button);
         
         musicPlayer.play(gameResources.get("bg_music"), PlayOptions().loop());
+        
+        spSprite info_button = new Sprite;
+        info_button->setResAnim(gameResources.getResAnim("info"));
+        info_button->setScale(ui_scale);
+        info_button->setPosition(10, stage_size.y - 100);
+        addChild(info_button);
+        
+        spSprite xp_bg = new Sprite;
+        xp_bg->setResAnim(gameResources.getResAnim("xp_bar_back"));
+        xp_bg->setPosition(870, 14);
+        xp_bg->setScale(ui_scale);
+        addChild(xp_bg);
+        
+        spSprite xp_image = new Sprite;
+        xp_image->setResAnim(gameResources.getResAnim("xp"));
+        xp_image->setScale(ui_scale);
+        xp_image->setAnchor(0.5f, 0);
+        xp_image->setPosition(870, 6);
+        addChild(xp_image);
+        
+        spSprite image_lobby = new Sprite;
+        image_lobby->setResAnim(gameResources.getResAnim("lobby"));
+        image_lobby->setScale(ui_scale);
+        image_lobby->setAnchor(0, 0);
+        image_lobby->setPosition(10, 0);
+        addChild(image_lobby);
     }
     
     void resetTotalWin()
@@ -155,45 +182,9 @@ public:
         _total_win_text->setText("0");
     }
 
-    void update(const UpdateState& us)
+    void _update(const UpdateState& us)
     {
-        _slots_machine->update(us.dt);
-    }
-    
-    void runSprite()
-    {
-        spSprite sprite = new Sprite();
-        addChild(sprite);
-
-        int duration = 600;//ms
-        int loops = -1;//infinity loops
-
-        //animation has 8 columns - frames, check 'res.xml'
-        ResAnim* animation = gameResources.getResAnim("anim");
-
-        //add animation tween to sprite
-        //TweenAnim would change animation frames
-        sprite->addTween(Sprite::TweenAnim(animation), duration, loops);
-
-        Vector2 destPos = getStage()->getSize() - sprite->getSize();
-        Vector2 srcPos = Vector2(0, destPos.y);
-        //set sprite initial position
-        sprite->setPosition(srcPos);
-
-        //add another tween: TweenQueue
-        //TweenQueue is a collection of tweens
-        spTweenQueue tweenQueue = new TweenQueue();
-        tweenQueue->setDelay(1500);
-        //first, move sprite to dest position
-        tweenQueue->add(Sprite::TweenPosition(destPos), 2500, 1);
-        //then fade it out smoothly
-        tweenQueue->add(Sprite::TweenAlpha(0), 500, 1);
-
-        sprite->addTween(tweenQueue);
-
-        //and remove sprite from tree when tweenQueue is empty
-        //if you don't hold any references to sprite it would be deleted automatically
-        tweenQueue->detachWhenDone();
+        _slots_machine->_update(us.dt);
     }
 };
 //declare spMainActor as intrusive_ptr holder of MainActor

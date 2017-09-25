@@ -15,8 +15,8 @@
 using namespace oxygine;
 
 extern Resources gameResources;
+extern float ui_scale;
 
-const float ui_scale = 0.7f;
 const int delay_between_reels_ms = 200;
 const int spinning_time_ms = 7000;
 const int calculation_time_point = 3000;
@@ -175,11 +175,11 @@ void SlotsMachine::showPayline(const Payline& payline)
             int slot_symbol_in_win_combination = payline.symbols_in_win_combination[reel_index];
             if(reel_in_win_combination[slot_index] == 1 && slot_symbol_in_win_combination > 0)
             {
-                if(slot_symbol_in_win_combination != _virtual_stop[reel_index][slot_index])
-                {
-                    _reels[reel_index]->setSlotSymbol(slot_index, slot_symbol_in_win_combination);
-                    _virtual_stop[reel_index][slot_index] = slot_symbol_in_win_combination;
-                }
+//                if(slot_symbol_in_win_combination != _virtual_stop[reel_index][slot_index])
+//                {
+//                    _reels[reel_index]->setSlotSymbol(slot_index, slot_symbol_in_win_combination);
+//                    _virtual_stop[reel_index][slot_index] = slot_symbol_in_win_combination;
+//                }
                 animateSlot(reel_index, slot_index);
             }
             else
@@ -192,7 +192,8 @@ void SlotsMachine::showPayline(const Payline& payline)
 
 void SlotsMachine::animateSlot(int reel_index, int slot_index)
 {
-    
+    spReel reel = _reels[reel_index];
+    reel->animateSlot(slot_index);
 }
 
 void SlotsMachine::shadeSlot(int reel_index, int slot_index)
@@ -374,12 +375,12 @@ void SlotsMachine::initReels(const Vector2& slot_size)
     }
 }
 
-void SlotsMachine::update(float delta_time)
+void SlotsMachine::_update(float delta_time)
 {
     bool reels_stopped = true;
     for(spReel& reel : _reels)
     {
-        reel->update(delta_time);
+        reel->_update(delta_time);
         if(reel->isSpinning())
         {
             reels_stopped = false;

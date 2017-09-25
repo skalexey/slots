@@ -10,8 +10,13 @@
 #include "Reel.h"
 #include "DataManager.h"
 #include "EventsController.h"
+#include "TweenAnimRows.h"
+#include "Utils.h"
 
 using namespace oxygine;
+
+extern Resources gameResources;
+extern float ui_scale;
 
 const double acceleration = 980.0;
 const double max_speed = 1500.0;
@@ -51,6 +56,20 @@ void Reel::shadeSlot(int slot_index)
     slot_sprite->setSize(_slot_size);
     slot_sprite->setPosition(0, slot_index * _slot_size.y);
     _inner_container->addChild(slot_sprite);
+    _effects_nodes.push_back(slot_sprite);
+}
+
+void Reel::animateSlot(int slot_index)
+{
+    int symbol = _slots[slot_index].symbol_info.symbol;
+    spSprite slot_sprite = new Sprite();
+    _inner_container->addChild(slot_sprite);
+    slot_sprite->setSize(_slot_size);
+    slot_sprite->setAnchor(1, 1);
+    slot_sprite->setScale(ui_scale * 0.75f);
+    slot_sprite->setPosition(_slot_size.x, (slot_index + 1) * _slot_size.y);
+    ResAnim* animation = gameResources.getResAnim((symbol == 0 ? "wild" : "tropicalisland") + (symbol == 0 ? std::string() : Utils::to_string(symbol)) + "_spritesheet");
+    slot_sprite->addTween(TweenAnimRows(animation), 600, -1);
     _effects_nodes.push_back(slot_sprite);
 }
 
@@ -97,7 +116,7 @@ void Reel::pushRandomSlot()
     pushSlot(slot_index);
 }
 
-void Reel::update(float delta_time)
+void Reel::_update(float delta_time)
 {
     if(!_spinning)
     {

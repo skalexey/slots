@@ -19,7 +19,7 @@ class Reel : public oxygine::Actor
 {
 public:
     Reel(int size, oxygine::Vector2 slot_size);
-    void update(float delta_time);
+    void _update(float delta_time);
     void spin();
     int getQueueSize() const;
     void pushRandomSlot();
@@ -28,6 +28,7 @@ public:
     void shadeSlot(int slot_index);
     void resetEffects();
     void setSlotSymbol(int slot_index, int symbol);
+    void animateSlot(int slot_index);
 private:
     void resetInnerContainerPosition();
     void pushInnerContainerUp();

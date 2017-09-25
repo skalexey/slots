@@ -26,7 +26,8 @@
 		793531671F78FC2200D431C3 /* liboxygine-freetype-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7935314C1F78ED2E00D431C3 /* liboxygine-freetype-ios.a */; };
 		793531681F78FC2600D431C3 /* liboxygine-sound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7935315A1F78EDC900D431C3 /* liboxygine-sound.a */; };
 		793531741F7905F100D431C3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793531731F7905F100D431C3 /* OpenAL.framework */; };
-		7935317B1F790ED400D431C3 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 7935317A1F790ED400D431C3 /* sounds */; };
+		793531861F79194400D431C3 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 793531851F79194400D431C3 /* sounds */; };
+		7935318B1F793F2400D431C3 /* TweenAnimRows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 793531891F793F2400D431C3 /* TweenAnimRows.cpp */; };
 		7971EAF91F6D56720032D376 /* Slots_ios-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7971EAF81F6D56720032D376 /* Slots_ios-Info.plist */; };
 		7971EB0D1F6D6B8D0032D376 /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7971EB0B1F6D6B8D0032D376 /* MainScene.cpp */; };
 		7971EB391F6E4A500032D376 /* EventsController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7971EB371F6E4A500032D376 /* EventsController.cpp */; };
@@ -131,7 +132,9 @@
 		793531471F78ED2E00D431C3 /* oxygine-freetype-ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "oxygine-freetype-ios.xcodeproj"; path = "../../oxygine-freetype/proj.ios/oxygine-freetype-ios/oxygine-freetype-ios.xcodeproj"; sourceTree = "<group>"; };
 		793531551F78EDC900D431C3 /* oxygine-sound.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "oxygine-sound.xcodeproj"; path = "../../oxygine-sound/proj.ios/oxygine-sound.xcodeproj"; sourceTree = "<group>"; };
 		793531731F7905F100D431C3 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		7935317A1F790ED400D431C3 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sounds; path = ../data/images/sounds; sourceTree = "<group>"; };
+		793531851F79194400D431C3 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sounds; path = ../data/sounds; sourceTree = "<group>"; };
+		793531891F793F2400D431C3 /* TweenAnimRows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TweenAnimRows.cpp; path = ../src/TweenAnimRows.cpp; sourceTree = "<group>"; };
+		7935318A1F793F2400D431C3 /* TweenAnimRows.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweenAnimRows.h; path = ../src/TweenAnimRows.h; sourceTree = "<group>"; };
 		7971EAF81F6D56720032D376 /* Slots_ios-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Slots_ios-Info.plist"; path = "Slots/Slots_ios-Info.plist"; sourceTree = "<group>"; };
 		7971EB0B1F6D6B8D0032D376 /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainScene.cpp; path = ../src/MainScene.cpp; sourceTree = "<group>"; };
 		7971EB0C1F6D6B8D0032D376 /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainScene.h; path = ../src/MainScene.h; sourceTree = "<group>"; };
@@ -241,7 +244,7 @@
 		04998CF617F8A933003441C3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7935317A1F790ED400D431C3 /* sounds */,
+				793531851F79194400D431C3 /* sounds */,
 				4DA100C319512824B7570663 /* fonts */,
 				04FE4D4FB640E0DF92DFB865 /* images */,
 				7F3B12E3C9D554D9FE28101D /* res.xml */,
@@ -280,6 +283,8 @@
 				79FB4CAC1F70347C0010A830 /* Utils.h */,
 				79FB4CAE1F7105B90010A830 /* Payline.cpp */,
 				79FB4CAF1F7105B90010A830 /* Payline.h */,
+				793531891F793F2400D431C3 /* TweenAnimRows.cpp */,
+				7935318A1F793F2400D431C3 /* TweenAnimRows.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -428,7 +433,7 @@
 			files = (
 				04E9AD3F1876FE84006A7317 /* Images.xcassets in Resources */,
 				C8860D93875589970329DCCD /* fonts in Resources */,
-				7935317B1F790ED400D431C3 /* sounds in Resources */,
+				793531861F79194400D431C3 /* sounds in Resources */,
 				1E839D002B2BA83FC83A695A /* images in Resources */,
 				3A631A475DE035FC53ADE5EA /* res.xml in Resources */,
 				7971EAF91F6D56720032D376 /* Slots_ios-Info.plist in Resources */,
@@ -452,6 +457,7 @@
 				79FB4CA41F6EFD6E0010A830 /* SlotsMachine.cpp in Sources */,
 				79FB4CAA1F6FAB4D0010A830 /* Dispatcher.cpp in Sources */,
 				79FB4CA71F6EFF2D0010A830 /* Reel.cpp in Sources */,
+				7935318B1F793F2400D431C3 /* TweenAnimRows.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

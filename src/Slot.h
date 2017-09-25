@@ -17,17 +17,18 @@ typedef std::vector<std::vector<int> > slots_table_t;
 struct SymbolInfo
 {
     SymbolInfo();
-    SymbolInfo(float weight, int reward1, int reward2, int reward3, std::string image_file_name, std::string image_blured_file_name);
+    SymbolInfo(int symbol, float weight, int reward1, int reward2, int reward3, std::string image_file_name, std::string image_blured_file_name);
     float weight;
     std::array<int, 3> rewards;
     std::string image_file_name;
     std::string image_blured_file_name;
+    int symbol;
 };
 
 struct Slot
 {
     Slot(oxygine::spSprite p_sprite, int symbol);
-    SymbolInfo slot_info;
+    SymbolInfo symbol_info;
     oxygine::spSprite getSprite();
     void operator=(Slot&);
     void setSlotSymbol(int symbol);
