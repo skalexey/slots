@@ -117,6 +117,10 @@ void SlotsMachine::onSpinEnd()
     showPaylines(paylines);
     _total_win = calculateTotalWin(paylines);
     DataManager::instance().appendCoins(_total_win);
+    if(paylines.size() > 0)
+    {
+        EventsController::instance().fireEvent("event.win");
+    }
 }
 
 int SlotsMachine::getTotalWin() const

@@ -6,6 +6,7 @@
 #include "ClipRectActor.h"
 #include "DataManager.h"
 #include "Utils.h"
+#include "oxygine-sound.h"
 
 using namespace oxygine;
 
@@ -13,6 +14,9 @@ using namespace oxygine;
 //in real project you would have more than one Resources declarations.
 //It is important on mobile devices with limited memory and you would load/unload them
 Resources gameResources;
+
+extern SoundPlayer sfxPlayer;
+extern SoundPlayer musicPlayer;
 
 const float ui_scale = 0.7f;
 
@@ -61,7 +65,7 @@ public:
         const Vector2& image_coins_bg_size = coins_bg->getSize();
         coins_text->setPosition(image_coins_bg_size.x / 2, image_coins_bg_size.y * 0.5f);
         coins_text->setFontSize(64);
-        TextStyle style = TextStyle(gameResources.getResFont("main")).withColor(Color::White).alignMiddle();
+        TextStyle style = TextStyle(gameResources.getResFont("myriad_pro_bold_condensed")).withColor(Color::White).alignMiddle();
         coins_text->setStyle(style);
         coins_text->setText(Utils::to_string(DataManager::instance().getCoinsCount()));
         
@@ -83,7 +87,7 @@ public:
             _slots_machine->spin();
             button_spin->setTouchEnabled(false);
             resetTotalWin();
-            
+            sfxPlayer.play(gameResources.get("spin_button"));
         });
         EventsController::instance().subscribeToEvent("event.spin_end", [=]()
         {
@@ -91,6 +95,11 @@ public:
             button_spin->setResAnim(gameResources.getResAnim("spin"));
             _total_win_text->setText(Utils::to_string(_slots_machine->getTotalWin()));
             coins_text->setText(Utils::to_string(DataManager::instance().getCoinsCount()));
+            sfxPlayer.play(gameResources.get("reel_stop"));
+        });
+        EventsController::instance().subscribeToEvent("event.win", [=]()
+        {
+            sfxPlayer.play(gameResources.get("win"));
         });
         button_spin->setAnchor(1, 1);
         button_spin->setPosition(stage_size);
@@ -111,7 +120,7 @@ public:
         const Vector2& image_total_win_bg_size = image_total_win_bg->getSize();
         _total_win_text->setPosition(image_total_win_bg_size.x / 2, image_total_win_bg_size.y * 0.54f);
         _total_win_text->setFontSize(64);
-        style = TextStyle(gameResources.getResFont("main")).withColor(Color::White).alignMiddle();
+        style = TextStyle(gameResources.getResFont("myriad_pro_bold_condensed")).withColor(Color::White).alignMiddle();
         _total_win_text->setStyle(style);
         resetTotalWin();
         UpdateCallback callback_update = CLOSURE(this, &MainActor::update);
@@ -138,8 +147,7 @@ public:
         bet_minus_button->setPosition(stage_size.x - 1040, stage_size.y);
         addChild(bet_minus_button);
         
-                
-        
+        musicPlayer.play(gameResources.get("bg_music"), PlayOptions().loop());
     }
     
     void resetTotalWin()

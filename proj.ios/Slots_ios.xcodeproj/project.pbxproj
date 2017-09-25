@@ -23,6 +23,10 @@
 		04E9AD3F1876FE84006A7317 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04E9AD3E1876FE84006A7317 /* Images.xcassets */; };
 		1E839D002B2BA83FC83A695A /* images in Resources */ = {isa = PBXBuildFile; fileRef = 04FE4D4FB640E0DF92DFB865 /* images */; };
 		3A631A475DE035FC53ADE5EA /* res.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B12E3C9D554D9FE28101D /* res.xml */; };
+		793531671F78FC2200D431C3 /* liboxygine-freetype-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7935314C1F78ED2E00D431C3 /* liboxygine-freetype-ios.a */; };
+		793531681F78FC2600D431C3 /* liboxygine-sound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7935315A1F78EDC900D431C3 /* liboxygine-sound.a */; };
+		793531741F7905F100D431C3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793531731F7905F100D431C3 /* OpenAL.framework */; };
+		7935317B1F790ED400D431C3 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 7935317A1F790ED400D431C3 /* sounds */; };
 		7971EAF91F6D56720032D376 /* Slots_ios-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7971EAF81F6D56720032D376 /* Slots_ios-Info.plist */; };
 		7971EB0D1F6D6B8D0032D376 /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7971EB0B1F6D6B8D0032D376 /* MainScene.cpp */; };
 		7971EB391F6E4A500032D376 /* EventsController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7971EB371F6E4A500032D376 /* EventsController.cpp */; };
@@ -68,6 +72,34 @@
 			remoteGlobalIDString = C3E86F4B16EBC8A500052915;
 			remoteInfo = oxygine_ios;
 		};
+		7935314B1F78ED2E00D431C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 793531471F78ED2E00D431C3 /* oxygine-freetype-ios.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AD13449B1D4AFCDB00D65B88;
+			remoteInfo = "oxygine-freetype-ios";
+		};
+		793531501F78ED9E00D431C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 793531471F78ED2E00D431C3 /* oxygine-freetype-ios.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AD13449A1D4AFCDB00D65B88;
+			remoteInfo = "oxygine-freetype-ios";
+		};
+		793531591F78EDC900D431C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 793531551F78EDC900D431C3 /* oxygine-sound.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 92AF25E919C637F80026E2CE;
+			remoteInfo = "oxygine-sound";
+		};
+		7935315F1F78EDFE00D431C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 793531551F78EDC900D431C3 /* oxygine-sound.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 92AF25E819C637F80026E2CE;
+			remoteInfo = "oxygine-sound";
+		};
 		7971EAFC1F6D56730032D376 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 04998D2F17F8A96E003441C3 /* SDL.xcodeproj */;
@@ -96,6 +128,10 @@
 		04FE4D4FB640E0DF92DFB865 /* images */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = images; path = ../data/images; sourceTree = "<group>"; };
 		0BF9628FC8D38F9748F0CDEB /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../src/main.cpp; sourceTree = "<group>"; };
 		4DA100C319512824B7570663 /* fonts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = fonts; path = ../data/fonts; sourceTree = "<group>"; };
+		793531471F78ED2E00D431C3 /* oxygine-freetype-ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "oxygine-freetype-ios.xcodeproj"; path = "../../oxygine-freetype/proj.ios/oxygine-freetype-ios/oxygine-freetype-ios.xcodeproj"; sourceTree = "<group>"; };
+		793531551F78EDC900D431C3 /* oxygine-sound.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "oxygine-sound.xcodeproj"; path = "../../oxygine-sound/proj.ios/oxygine-sound.xcodeproj"; sourceTree = "<group>"; };
+		793531731F7905F100D431C3 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		7935317A1F790ED400D431C3 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sounds; path = ../data/images/sounds; sourceTree = "<group>"; };
 		7971EAF81F6D56720032D376 /* Slots_ios-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Slots_ios-Info.plist"; path = "Slots/Slots_ios-Info.plist"; sourceTree = "<group>"; };
 		7971EB0B1F6D6B8D0032D376 /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainScene.cpp; path = ../src/MainScene.cpp; sourceTree = "<group>"; };
 		7971EB0C1F6D6B8D0032D376 /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainScene.h; path = ../src/MainScene.h; sourceTree = "<group>"; };
@@ -125,6 +161,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793531741F7905F100D431C3 /* OpenAL.framework in Frameworks */,
+				793531681F78FC2600D431C3 /* liboxygine-sound.a in Frameworks */,
+				793531671F78FC2200D431C3 /* liboxygine-freetype-ios.a in Frameworks */,
 				AD18619B1D8EC97A0043AFA3 /* AVFoundation.framework in Frameworks */,
 				9223FE7F1C2D913D000B1FDA /* GameController.framework in Frameworks */,
 				049B52B11871EBFA00EF3C66 /* liboxygine_ios.a in Frameworks */,
@@ -159,6 +198,8 @@
 		04998CE317F8A933003441C3 = {
 			isa = PBXGroup;
 			children = (
+				793531551F78EDC900D431C3 /* oxygine-sound.xcodeproj */,
+				793531471F78ED2E00D431C3 /* oxygine-freetype-ios.xcodeproj */,
 				7971EAF81F6D56720032D376 /* Slots_ios-Info.plist */,
 				045D531C17F8BD5E00CC2C64 /* dependencies */,
 				04998D3917F8A9AA003441C3 /* oxygine_ios.xcodeproj */,
@@ -182,6 +223,7 @@
 		04998CEE17F8A933003441C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				793531731F7905F100D431C3 /* OpenAL.framework */,
 				AD18619A1D8EC97A0043AFA3 /* AVFoundation.framework */,
 				9223FE7E1C2D913D000B1FDA /* GameController.framework */,
 				04998EEB17F8ADD4003441C3 /* UIKit.framework */,
@@ -199,6 +241,7 @@
 		04998CF617F8A933003441C3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7935317A1F790ED400D431C3 /* sounds */,
 				4DA100C319512824B7570663 /* fonts */,
 				04FE4D4FB640E0DF92DFB865 /* images */,
 				7F3B12E3C9D554D9FE28101D /* res.xml */,
@@ -249,6 +292,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		793531481F78ED2E00D431C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7935314C1F78ED2E00D431C3 /* liboxygine-freetype-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		793531561F78EDC900D431C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7935315A1F78EDC900D431C3 /* liboxygine-sound.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -263,8 +322,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				04998D3817F8A982003441C3 /* PBXTargetDependency */,
+				793531601F78EDFE00D431C3 /* PBXTargetDependency */,
+				793531511F78ED9E00D431C3 /* PBXTargetDependency */,
 				049B52B01871EBD100EF3C66 /* PBXTargetDependency */,
+				04998D3817F8A982003441C3 /* PBXTargetDependency */,
 			);
 			name = Slots_ios;
 			productName = Slots;
@@ -299,6 +360,14 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 793531481F78ED2E00D431C3 /* Products */;
+					ProjectRef = 793531471F78ED2E00D431C3 /* oxygine-freetype-ios.xcodeproj */;
+				},
+				{
+					ProductGroup = 793531561F78EDC900D431C3 /* Products */;
+					ProjectRef = 793531551F78EDC900D431C3 /* oxygine-sound.xcodeproj */;
+				},
+				{
 					ProductGroup = 049B52A91871EBBA00EF3C66 /* Products */;
 					ProjectRef = 04998D3917F8A9AA003441C3 /* oxygine_ios.xcodeproj */;
 				},
@@ -329,6 +398,20 @@
 			remoteRef = 049B52AC1871EBBA00EF3C66 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		7935314C1F78ED2E00D431C3 /* liboxygine-freetype-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "liboxygine-freetype-ios.a";
+			remoteRef = 7935314B1F78ED2E00D431C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7935315A1F78EDC900D431C3 /* liboxygine-sound.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "liboxygine-sound.a";
+			remoteRef = 793531591F78EDC900D431C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7971EAFD1F6D56730032D376 /* libSDL2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -345,6 +428,7 @@
 			files = (
 				04E9AD3F1876FE84006A7317 /* Images.xcassets in Resources */,
 				C8860D93875589970329DCCD /* fonts in Resources */,
+				7935317B1F790ED400D431C3 /* sounds in Resources */,
 				1E839D002B2BA83FC83A695A /* images in Resources */,
 				3A631A475DE035FC53ADE5EA /* res.xml in Resources */,
 				7971EAF91F6D56720032D376 /* Slots_ios-Info.plist in Resources */,
@@ -383,6 +467,16 @@
 			isa = PBXTargetDependency;
 			name = oxygine_ios;
 			targetProxy = 049B52AF1871EBD100EF3C66 /* PBXContainerItemProxy */;
+		};
+		793531511F78ED9E00D431C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "oxygine-freetype-ios";
+			targetProxy = 793531501F78ED9E00D431C3 /* PBXContainerItemProxy */;
+		};
+		793531601F78EDFE00D431C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "oxygine-sound";
+			targetProxy = 7935315F1F78EDFE00D431C3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -477,10 +571,17 @@
 				GCC_PREFIX_HEADER = "Slots/Slots_ios-Prefix.pch";
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"../../oxygine-freetype/src",
+					"../../oxygine-freetype/freetype/xcode/include",
+					"\"$(SRCROOT)/../../oxygine-sound/src\"",
+				);
 				INFOPLIST_FILE = "Slots/Slots_ios-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../../oxygine-framework//oxygine/third_party/ios/libraries",
+					"../../oxygine-freetype/freetype/xcode",
+					"\"$(SRCROOT)/../../oxygine-freetype/freetype/xcode\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.oxygine.slotstest;
@@ -504,10 +605,17 @@
 				GCC_PREFIX_HEADER = "Slots/Slots_ios-Prefix.pch";
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"../../oxygine-freetype/src",
+					"../../oxygine-freetype/freetype/xcode/include",
+					"\"$(SRCROOT)/../../oxygine-sound/src\"",
+				);
 				INFOPLIST_FILE = "Slots/Slots_ios-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../../oxygine-framework//oxygine/third_party/ios/libraries",
+					"../../oxygine-freetype/freetype/xcode",
+					"\"$(SRCROOT)/../../oxygine-freetype/freetype/xcode\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.oxygine.slotstest;

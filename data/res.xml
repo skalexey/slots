@@ -44,4 +44,11 @@
 	
 	<set path = "fonts" />
 	<font file="main.fnt" />
+	<ftfont file="myriad_pro_bold_condensed.ttf" />
+
+	<set path = "sounds" />	
+ 	<sound file="bg_music.ogg" />
+	<sound file="reel_stop.ogg" />
+	<sound file="spin_button.ogg"/>
+	<sound file="win.ogg" />
 </resources>

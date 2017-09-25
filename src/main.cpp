@@ -9,9 +9,13 @@
 #include "DebugActor.h"
 #include "MainScene.h"
 #include "Dispatcher.h"
+#include "ResFontFT.h"
+#include "oxygine-sound.h"
 
 using namespace oxygine;
 
+SoundPlayer sfxPlayer;
+SoundPlayer musicPlayer;
 
 // This function is called each frame
 int mainloop()
@@ -24,6 +28,10 @@ int mainloop()
     // It gets passed to our example game implementation
     main_scene_update();
 
+    SoundSystem::get()->update();
+    sfxPlayer.update();
+    musicPlayer.update();
+    
     // Update our stage
     // Update all actors. Actor::update will also be called for all its children
     getStage()->update();
@@ -51,7 +59,11 @@ void run()
     // Initialize Oxygine's internal stuff
     core::init_desc desc;
     desc.title = "Oxygine Application";
-
+    ResFontFT::initLibrary();
+    SoundSystem::create()->init(16);
+    SoundPlayer::initialize();
+    sfxPlayer.setVolume(1.0f);
+    musicPlayer.setVolume(1.0f);
 #if OXYGINE_SDL || OXYGINE_EMSCRIPTEN
     // The initial window size can be set up here on SDL builds
     desc.w = 960;
@@ -118,7 +130,9 @@ void run()
 
     // Releases all internal components and the stage
     core::release();
-
+    
+    ResFontFT::freeLibrary();
+    
     // The dump list should be empty by now,
     // we want to make sure that there aren't any memory leaks, so we call it again.
     ObjectBase::dumpCreatedObjects();
